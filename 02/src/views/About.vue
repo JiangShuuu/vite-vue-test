@@ -5,14 +5,18 @@ import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query';
 const queryClient = useQueryClient();
 
 const getData = async () => {
-  const { data } = await axios.get('https://swapi.dev/api/people/9');
+  const { data } = await axios.get('https://swapi.dev/api/people/8');
   return data;
 };
 
 // Query
 const { isLoading, isError, data, error } = useQuery({
   queryKey: ['todos_02'],
-  queryFn: getData
+  queryFn: getData,
+  // 快取保留時間 20秒
+  staleTime: 20 * 1000,
+  // 切回換視窗,頁面即時更新
+  refetchOnWindowFocus: false
 });
 
 console.log('data', data);

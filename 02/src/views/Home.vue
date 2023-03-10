@@ -13,7 +13,11 @@ const getData = async () => {
 // Query
 const { isLoading, isError, data, error } = useQuery({
   queryKey: ['todos_01'],
-  queryFn: getData
+  queryFn: getData,
+  // 快取保留時間 20秒
+  staleTime: 20 * 1000,
+  // 切回換視窗,頁面即時更新
+  refetchOnWindowFocus: false
 });
 
 console.log('data', data);
@@ -27,7 +31,7 @@ console.log('data', data);
     <a href="https://vuejs.org/" target="_blank">
       <img src="../assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
-    <div>
+    <div class="border">
       <router-link to="/about">Go to About</router-link>
     </div>
     <p v-if="!isLoading">name: {{ data.name }}</p>
